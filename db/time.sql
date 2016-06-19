@@ -1,0 +1,13 @@
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+CREATE TABLE IF NOT EXISTS `time` (
+  `taskid` INT UNSIGNED NOT NULL,
+  `userid` TINYINT UNSIGNED NOT NULL,
+  `time` TINYINT NOT NULL,
+  `date` DATE DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+ALTER TABLE `time`
+ ADD KEY (`userid`),
+ ADD CONSTRAINT FK_time_taskid FOREIGN KEY (`taskid`) REFERENCES `tasks` (`id`);

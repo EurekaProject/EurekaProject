@@ -1,0 +1,53 @@
+.popup.container
+{
+	position:fixed;
+	top:25%;
+	left:25%;
+	width:50%;
+	display:none;
+	z-index:100;
+}
+.noresize
+{
+	resize:none;
+}
+.vresize
+{
+	resize:none;
+}
+.row
+{
+	margin-bottom:5px;
+}
+.container-fluid:not(:last-child)
+{
+	margin-bottom:5px;
+	border-bottom: 1px solid #ccc;
+}
+[role="button"]
+{
+	pointer-events:initial;
+}
+a:hover
+{
+	text-decoration:none;
+}
+div:hover > .invisible
+{
+	visibility: visible;
+}
+
+td.fixed-column,th.fixed-column {
+	position:absolute;
+	*position: relative; /*ie7*/
+	left:0px; 
+	width:250px;
+	overflow:hide;
+}
+
+.outer {position:relative}
+.inner {
+	overflow-x:scroll;
+	overflow-y:visible;
+	margin-left:250px;
+}
