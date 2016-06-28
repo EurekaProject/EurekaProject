@@ -355,7 +355,7 @@ class time_service
 		}
 
 		$sql = $cmd.$dateselect." FROM `tasks`, `time` WHERE tasks.id = taskid ".$userid.$taskid.$date.$group.$order.$limit.";";
-		error_log($sql);
+		//error_log($sql);
 		$result = $this->db->query($sql);
 		if ($result === false)
 		{
