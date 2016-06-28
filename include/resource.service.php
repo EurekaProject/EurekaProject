@@ -322,7 +322,7 @@ class resource_service
 
 		$sql = $cmd." FROM `resources` ".$tables.$where.$order.";";
 		$result = $this->db->query($sql);
-		error_log($sql);
+		//error_log($sql);
 		if ($result === false)
 		{
 			error_log("error on ".$sql);
