@@ -10,6 +10,7 @@ ALTER TABLE `settings`
  ADD PRIMARY KEY (`key`);
 
 INSERT INTO `settings` (`key`,`value`) VALUE 
+  ('Language','fra'),
   ('MaxDaysPerWeek','5'),
   ('MaxHoursPerDay','7'),
   ('HourResolution','4');
