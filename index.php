@@ -38,6 +38,10 @@ if (!isset($_SESSION['eurekadb']) && file_exists("./config"))
 		$_SESSION['eurekadb'] = $eurekadb;
 	}
 }
+if (!isset($_SESSION['eurekadb']) && isset($_REQUEST['eurekadb']))
+	$_SESSION['eurekadb'] = $_REQUEST['eurekadb'];
+if (isset($_SESSION['eurekadb']) && !isset($_REQUEST['eurekadb']))
+	unset($_SESSION['eurekadb']);
 session_write_close();
 require_once "settings.service.php";
 $settings = new settings_service();
