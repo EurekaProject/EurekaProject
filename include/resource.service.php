@@ -52,22 +52,29 @@ class resource extends absresource
 class resource_service
 {
 	var $dbname;
-	function __construct($dbname = "eureka_project", $dbhost = "127.0.0.1")
+	function __construct($eurekadb = "root:root@127.0.0.1/eureka_project")
 	{
+		list($dbuser,$dbhost) = explode('@',$eurekadb);
+		list($dbuser,$dbpass) = explode(':',$dbuser);
+		list($dbhost,$dbname) = explode('/',$dbhost);
 		session_start();
 		if (isset($_SESSION['eurekadb']))
 		{
-			$tasksdb = $_SESSION['eurekadb'];
-			list($dbname,$dbhost) = explode('@',$tasksdb);
+			$eurekadb = $_SESSION['eurekadb'];
+			list($dbuser,$dbhost) = explode('@',$eurekadb);
+			list($dbuser,$dbpass) = explode(':',$dbuser);
+			list($dbhost,$dbname) = explode('/',$dbhost);
 		}
 		session_write_close();
 		if (isset($_REQUEST['eurekadb']))
 		{
-			$tasksdb = $_REQUEST['eurekadb'];
-			list($dbname,$dbhost) = explode('@',$tasksdb);
+			$eurekadb = $_REQUEST['eurekadb'];
+			list($dbuser,$dbhost) = explode('@',$eurekadb);
+			list($dbuser,$dbpass) = explode(':',$dbuser);
+			list($dbhost,$dbname) = explode('/',$dbhost);
 		}
 		$this->dbname = $dbname;
-		$this->db = new db("",$dbhost);
+		$this->db = new db("",$dbhost,$dbuser,$dbpass);
 		if ($this->db->status == 0)
 		{
 			if ($this->db->select_db($this->dbname) == false)
