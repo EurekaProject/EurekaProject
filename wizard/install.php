@@ -29,7 +29,7 @@ if (isset($_REQUEST["authtool"]))
 		case "eurekauser":
 			error_log("AuthToolPath: ".$path."/signin.php?site=EurekaProject&url=".dirname(dirname($_SERVER["PHP_SELF"]))."/");
 			$settings->set("AuthToolPath",$path."/signin.php?site=EurekaProject&url=".dirname(dirname($_SERVER["PHP_SELF"]))."/");
-			$nextstep = $path."/user.php?action=create";
+			$nextstep = $path."/user.php?action=create&site=EurekaProject&url=".dirname(dirname($_SERVER["PHP_SELF"]))."/";
 		break;
 	}
 	header("Location: ".$nextstep);
