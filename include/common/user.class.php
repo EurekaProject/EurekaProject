@@ -137,7 +137,10 @@ abstract class user implements Serializable
 
     public function language()
     {
-	return $this->data["lang"];
+	if (isset($this->data["lang"]))
+	    return $this->data["lang"];
+	else
+	    return "eng";
     }
 
     public function id()
