@@ -24,7 +24,21 @@ set_include_path(get_include_path().PATH_SEPARATOR.dirname(__FILE__).'/include/'
 set_include_path(get_include_path().PATH_SEPARATOR.dirname(__FILE__).'/user/include/');
 
 session_name("EurekaProject");
-
+session_start();
+if (!isset($_SESSION['eurekadb']) && file_exists("./config"))
+{
+	$lines = file("./config", FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+	foreach ($lines as $line)
+	{
+		list($var, $value) = explode("=",$line);
+		$$var = $value;
+	}
+	if (isset($eurekadb))
+	{
+		$_SESSION['eurekadb'] = $eurekadb;
+	}
+}
+session_write_close();
 require_once "settings.service.php";
 $settings = new settings_service();
 
