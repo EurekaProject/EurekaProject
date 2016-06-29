@@ -25,6 +25,10 @@ set_include_path(get_include_path().PATH_SEPARATOR.dirname(__FILE__).'/user/incl
 
 session_name("EurekaProject");
 session_start();
+if (!isset($_SESSION['eurekadb']) && isset($_REQUEST['eurekadb']))
+	$_SESSION['eurekadb'] = $_REQUEST['eurekadb'];
+else if (!isset($_SESSION['Auth']) && isset($_SESSION['eurekadb']) && !isset($_REQUEST['eurekadb']))
+	unset($_SESSION['eurekadb']);
 if (!isset($_SESSION['eurekadb']) && file_exists("./config"))
 {
 	$lines = file("./config", FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
@@ -38,10 +42,6 @@ if (!isset($_SESSION['eurekadb']) && file_exists("./config"))
 		$_SESSION['eurekadb'] = $eurekadb;
 	}
 }
-if (!isset($_SESSION['eurekadb']) && isset($_REQUEST['eurekadb']))
-	$_SESSION['eurekadb'] = $_REQUEST['eurekadb'];
-if (isset($_SESSION['eurekadb']) && !isset($_REQUEST['eurekadb']))
-	unset($_SESSION['eurekadb']);
 session_write_close();
 require_once "settings.service.php";
 $settings = new settings_service();
