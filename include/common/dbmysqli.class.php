@@ -82,7 +82,7 @@ class db extends dbabs
 		$this->data_connection['host'] = $dbhost;
 		$this->data_connection['user'] = $dbuser;
 		$this->data_connection['pass'] = $dbpass;
-		$this->connection = $this->connect();
+		$this->connect();
 		$this->status = -1;
 
 		if($this->connection == FALSE)
@@ -109,7 +109,13 @@ class db extends dbabs
 			@mysqli_set_charset($this->connection, "utf8");
 		}
 	}
-
+	function __destruct()
+	{
+		if ($this->connection)
+		{
+			$this->close();
+		}
+	}
 	private function connect()
 	{
 		$this->connection = @mysqli_connect($this->data_connection['host'], $this->data_connection['user'], $this->data_connection['pass']);
@@ -118,6 +124,7 @@ class db extends dbabs
 			error_log('database connection on '.$this->data_connection['host'].' failed, error : '.mysqli_connect_error());
 			if ($this->data_connection['host'] === "127.0.0.1")
 				error_log("please check the mysqld option --skip-networking");
+			throw new Exception("Database server not available.");
 		}
 		return $this->connection;
 	}
@@ -223,6 +230,7 @@ class db extends dbabs
 		if ($this->status == -1 || $this->status == -2)
 			return false;
 		@mysqli_close($this->connection);
+		$this->connection = FALSE;
 	}
 
 	public function escape_string($string)
