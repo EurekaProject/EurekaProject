@@ -13,7 +13,7 @@ abstract class dbresultabs
 
 	abstract class dbabs
 	{
-		protected $connection;
+		protected $connection = FALSE;
 		public $status;
 		private $dbname;
 		public $debug = false;
