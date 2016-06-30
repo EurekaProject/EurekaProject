@@ -16,9 +16,7 @@ abstract class abstask implements Serializable
 	}
 	function __construct($options)
 	{
-		if (gettype($options) !== "array")
-			error_log("tasks service: options ".gettype($options));
-		else
+		if (gettype($options) === "array")
 		{
 			foreach ($options as $key=>$value)
 			{
