@@ -21,10 +21,6 @@ class tasks
 
 	public function __construct()
 	{
-		$this->tasksmng = new task_service();
-		$this->timesmng = new time_service();
-		$this->projectsmng = new project_service();
-		$this->resourcesmng = new resource_service();
 	}
 
 	private function _formatProject($entry, $full=true)
@@ -81,6 +77,16 @@ class tasks
 			{
 				case 'saveTask':
 				{
+					try
+					{
+						$this->tasksmng = new task_service();
+					}
+					catch(Exception $e)
+					{
+						$response["body"][$action."Response"]["error"] = $e->getMessage();
+						$response["body"][$action."Response"]["result"] = 0;
+						break;
+					}
 					if (isset($argumentslist["id"]))
 					{
 						$return = $this->tasksmng->update($argumentslist);
@@ -117,6 +123,16 @@ class tasks
 				break;
 				case 'getTask':
 				{
+					try
+					{
+						$this->tasksmng = new task_service();
+					}
+					catch(Exception $e)
+					{
+						$response["body"][$action."Response"]["error"] = $e->getMessage();
+						$response["body"][$action."Response"]["result"] = 0;
+						break;
+					}
 					$return = $this->tasksmng->get($argumentslist);
 					if (gettype($return) === "array")
 					{
@@ -179,6 +195,16 @@ class tasks
 				break;
 				case 'getProject':
 				{
+					try
+					{
+						$this->projectsmng = new project_service();
+					}
+					catch(Exception $e)
+					{
+						$response["body"][$action."Response"]["error"] = $e->getMessage();
+						$response["body"][$action."Response"]["result"] = 0;
+						break;
+					}
 					$return = $this->projectsmng->get($argumentslist);
 					if (gettype($return) === "array")
 					{
@@ -207,6 +233,16 @@ class tasks
 				break;
 				case 'saveProject':
 				{
+					try
+					{
+						$this->projectsmng = new project_service();
+					}
+					catch(Exception $e)
+					{
+						$response["body"][$action."Response"]["error"] = $e->getMessage();
+						$response["body"][$action."Response"]["result"] = 0;
+						break;
+					}
 					$return = $this->projectsmng->save($argumentslist);
 					if (gettype($return) === "array")
 					{
@@ -235,6 +271,16 @@ class tasks
 				break;
 				case 'getResource':
 				{
+					try
+					{
+						$this->resourcesmng = new resource_service();
+					}
+					catch(Exception $e)
+					{
+						$response["body"][$action."Response"]["error"] = $e->getMessage();
+						$response["body"][$action."Response"]["result"] = 0;
+						break;
+					}
 					$return = $this->resourcesmng->get($argumentslist);
 					if (gettype($return) === "array")
 					{
@@ -263,6 +309,16 @@ class tasks
 				break;
 				case 'saveResource':
 				{
+					try
+					{
+						$this->resourcesmng = new resource_service();
+					}
+					catch(Exception $e)
+					{
+						$response["body"][$action."Response"]["error"] = $e->getMessage();
+						$response["body"][$action."Response"]["result"] = 0;
+						break;
+					}
 					$return = $this->resourcesmng->save($argumentslist);
 					if (gettype($return) === "array")
 					{
@@ -291,6 +347,16 @@ class tasks
 				break;
 				case "getTime":
 				{
+					try
+					{
+						$this->tasksmng = new task_service();
+					}
+					catch(Exception $e)
+					{
+						$response["body"][$action."Response"]["error"] = $e->getMessage();
+						$response["body"][$action."Response"]["result"] = 0;
+						break;
+					}
 					$return = $this->tasksmng->get($argumentslist);
 					if (gettype($return) === "array")
 					{
@@ -304,6 +370,17 @@ class tasks
 						$userid = $return->get("userid");
 						if (!isset($argumentlist["userid"]) && $userid)
 							$argumentlist["userid"] = $userid;
+					}
+					unset($this->tasksmng);
+					try
+					{
+						$this->timesmng = new time_service();
+					}
+					catch(Exception $e)
+					{
+						$response["body"][$action."Response"]["error"] = $e->getMessage();
+						$response["body"][$action."Response"]["result"] = 0;
+						break;
 					}
 					$return = $this->timesmng->get($argumentslist);
 					if (gettype($return) === "array")
@@ -333,6 +410,16 @@ class tasks
 				break;
 				case "addTime":
 				{
+					try
+					{
+						$this->tasksmng = new task_service();
+					}
+					catch(Exception $e)
+					{
+						$response["body"][$action."Response"]["error"] = $e->getMessage();
+						$response["body"][$action."Response"]["result"] = 0;
+						break;
+					}
 					$return = $this->tasksmng->get($argumentslist);
 					if (gettype($return) === "array")
 					{
@@ -346,6 +433,17 @@ class tasks
 						$userid = $return->get("userid");
 						if (!isset($argumentlist["userid"]) && $userid)
 							$argumentlist["userid"] = $userid;
+					}
+					unset($this->tasksmng);
+					try
+					{
+						$this->timesmng = new time_service();
+					}
+					catch(Exception $e)
+					{
+						$response["body"][$action."Response"]["error"] = $e->getMessage();
+						$response["body"][$action."Response"]["result"] = 0;
+						break;
 					}
 					$return = $this->timesmng->create($argumentslist);
 					if (gettype($return) === "array")
